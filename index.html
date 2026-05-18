@@ -3,375 +3,564 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POPO Editor | الاحترافية في تعديل الصور</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <title>POPO Studio | Professional Post-Processing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #a855f7;
+            --primary-glow: rgba(168, 85, 247, 0.4);
+            --bg-dark: #09090b;
+            --card-bg: rgba(20, 20, 23, 0.6);
+            --border-color: rgba(168, 85, 247, 0.15);
+            --text-muted: #a1a1aa;
+        }
+
         body { 
-            background: radial-gradient(circle at top right, #121214, #050505);
+            background: radial-gradient(circle at top center, #180828 0%, var(--bg-dark) 70%);
             background-attachment: fixed;
             color: #ffffff; 
             font-family: 'Cairo', sans-serif; 
-            text-align: center; 
             margin: 0; 
             padding: 0; 
             overflow-x: hidden;
         }
 
         .container { 
-            max-width: 450px; 
+            max-width: 480px; 
             margin: 40px auto; 
-            border: 1px solid rgba(168, 85, 247, 0.2); 
-            padding: 25px; 
-            border-radius: 30px; 
-            background: rgba(15, 15, 15, 0.85); 
-            backdrop-filter: blur(10px); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.9); 
-            animation: fadeInPage 1s ease-in-out;
+            padding: 20px; 
+            box-sizing: border-box;
         }
 
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .profile-area { position: relative; margin-bottom: 15px; margin-top: 10px; }
+        .profile-area { text-align: center; margin-bottom: 30px; }
         .profile-pic {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 3px solid #a855f7;
-            padding: 5px;
-            object-fit: cover;
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
-            display: inline-block;
+            border: 2px solid var(--primary);
+            padding: 4px;
+            box-shadow: 0 0 20px var(--primary-glow);
         }
 
-        h1 { color: #a855f7; font-size: 24px; margin: 15px 0 5px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .subtitle { color: #aaa; font-size: 14px; margin-bottom: 25px; letter-spacing: 2px; }
+        h1 { color: #fff; font-size: 26px; margin: 10px 0 5px; font-weight: 700; letter-spacing: 1px; }
+        .subtitle { color: var(--primary); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
         
-        .welcome-message { 
+        .section-title { 
+            text-align: right; 
+            color: #fff; 
+            font-size: 16px; 
+            font-weight: 700; 
+            margin: 35px 0 15px 0; 
+            padding-right: 10px;
+            border-right: 3px solid var(--primary);
+        }
+
+        .info-note {
             background: rgba(168, 85, 247, 0.05);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            padding: 15px;
+            border: 1px dashed rgba(168, 85, 247, 0.3);
             border-radius: 15px;
-            margin-bottom: 25px;
-            font-size: 13px;
-            color: #f3e8ff;
-            font-style: italic;
+            padding: 12px 15px;
+            font-size: 12px;
+            color: #e4e4e7;
+            text-align: right;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
+
+        .package-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-align: right;
+        }
+        .package-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(168, 85, 247, 0.1);
+        }
+
+        .details-side { flex: 1; padding-left: 10px; }
+        .details-side strong { font-size: 15px; color: #fff; display: block; }
+        .details-side p { margin: 4px 0 0 0; color: var(--text-muted); font-size: 12px; line-height: 1.4; }
+
+        .action-side { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; min-width: 90px; }
+        .price-tag { background: rgba(168, 85, 247, 0.15); color: #e9d5ff; border: 1px solid rgba(168, 85, 247, 0.3); padding: 4px 10px; border-radius: 8px; font-weight: bold; font-size: 12px; }
         
-        .section-title { text-align: right; color: #a855f7; border-right: 3px solid #a855f7; padding-right: 10px; margin: 30px 0 15px 0; font-size: 16px; font-weight: bold; }
+        .btn-order {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Cairo';
+            transition: 0.2s;
+        }
+        .btn-order:hover { background: #9333ea; box-shadow: 0 0 10px var(--primary-glow); }
+
+        /* الشاشات المنبثقة (Popups) */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .popup-content {
+            background: #121214;
+            border: 1px solid var(--primary);
+            border-radius: 24px;
+            max-width: 420px;
+            width: 100%;
+            padding: 22px;
+            box-sizing: border-box;
+            text-align: right;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .popup-content h3 { margin-top: 0; color: var(--primary); font-size: 18px; text-align: center; }
+        .popup-content label { display: block; margin: 14px 0 5px; font-size: 12px; color: var(--text-muted); }
+        .popup-content input, .popup-content textarea {
+            width: 100%; padding: 10px; background: #1c1c1e; border: 1px solid #2c2c2e;
+            border-radius: 10px; color: #fff; font-family: 'Cairo'; box-sizing: border-box; font-size: 13px;
+        }
+        .popup-content input:focus { border-color: var(--primary); outline: none; }
         
-        .package { 
-            background: rgba(255, 255, 255, 0.03); 
-            border-radius: 20px; 
-            padding: 18px; 
-            margin-bottom: 15px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+        .calc-box {
+            background: rgba(168, 85, 247, 0.08);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            padding: 12px; border-radius: 12px; margin-top: 15px; text-align: center;
+        }
+        .calc-box span { font-weight: 700; color: var(--primary); font-size: 16px; }
+
+        .delivery-alert {
+            font-size: 11px; color: #f43f5e; background: rgba(244, 63, 94, 0.1);
+            padding: 8px; border-radius: 8px; text-align: center; margin-top: 12px; border: 1px dashed rgba(244, 63, 94, 0.2);
+        }
+
+        .popup-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-submit { background: var(--primary); color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: bold; flex: 2; cursor: pointer; font-family: 'Cairo'; }
+        .btn-close { background: #27272a; color: #fff; border: none; padding: 10px; border-radius: 10px; flex: 1; cursor: pointer; font-family: 'Cairo'; }
+
+        /* أزرار الاتصال السفلى */
+        .footer-contacts {
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
-            animation: slideInUp 0.6s ease-in-out both;
+            border-radius: 20px; padding: 15px; margin-top: 40px; text-align: right;
         }
-        .package:hover { border-color: #a855f7; background: rgba(168, 85, 247, 0.05); transform: translateY(-2px); }
-
-        @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        .footer-contacts h4 { margin: 0 0 10px 0; font-size: 14px; color: var(--primary); }
+        .contact-row { font-size: 12px; color: #e4e4e7; margin: 6px 0; }
+        .social-btn {
+            display: inline-block; width: 100%; text-align: center; background: #1877f2;
+            color: #fff; text-decoration: none; padding: 10px; border-radius: 10px;
+            font-weight: bold; font-size: 13px; margin-top: 10px; transition: 0.2s;
         }
+        .social-btn:hover { opacity: 0.9; }
 
-        .package-details { text-align: right; }
-        .package-details strong { font-size: 15px; color: #fff; }
-        .package-details p { margin: 5px 0 0 0; color: #999; font-size: 12px; }
-        
-        .price-box { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .price { background: #a855f7; color: #fff; padding: 6px 12px; border-radius: 10px; font-weight: bold; font-size: 13px; }
-        
-        .btn-select { 
-            background: transparent; 
-            color: #a855f7; 
-            border: 1px solid #a855f7; 
-            padding: 5px 12px; 
-            border-radius: 8px; 
-            font-size: 11px; 
-            cursor: pointer; 
-            font-family: 'Cairo'; 
-            transition: 0.3s;
-            animation: pulseGlow 2s infinite;
-        }
-        .btn-select:hover { background: #a855f7; color: #fff; box-shadow: 0 0 10px #a855f7; }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4); }
-            70% { box-shadow: 0 0 0 6px rgba(168, 85, 247, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
-        }
-
-        .social-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; margin-bottom: 10px; }
-        .social-item { background: rgba(255, 255, 255, 0.05); padding: 12px 5px; border-radius: 12px; text-decoration: none; color: #fff; font-size: 14px; border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s; font-weight: bold; display: flex; align-items: center; justify-content: center; }
-        .social-item:hover { border-color: #a855f7; color: #a855f7; transform: translateY(-3px); }
-        .social-item.whatsapp-link { background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.3); }
-        .social-item.whatsapp-link:hover { border-color: #25d366; color: #25d366; }
-        
-        .footer { margin-top: 40px; font-size: 11px; color: #555; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; }
-        .designer-signature { font-size: 10px; color: #a855f7; letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; display: block; font-weight: bold; }
-
-        .popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 1000; padding: 15px; box-sizing: border-box; }
-        .popup-content { background: #111; border: 1px solid #a855f7; padding: 25px; border-radius: 25px; max-width: 400px; width: 100%; text-align: right; max-height: 90vh; overflow-y: auto; box-sizing: border-box; }
-        .popup h3 { margin-top: 0; color: #a855f7; text-align: center; font-size: 18px; }
-        .popup label { display: block; margin: 12px 0 5px; font-size: 13px; color: #a855f7; }
-        .popup input, .popup textarea { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; color: #fff; font-family: 'Cairo'; box-sizing: border-box; font-size: 13px; }
-        
-        .radio-group { background: rgba(255,255,255,0.02); padding: 10px; border-radius: 10px; border: 1px solid #222; margin-top: 5px; }
-        .radio-label { display: flex !important; align-items: center; gap: 8px; color: #ccc !important; font-size: 12px !important; cursor: pointer; margin: 8px 0 !important; }
-        .radio-label input { width: auto !important; margin: 0; cursor: pointer; }
-        
-        .calc-item { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; margin-bottom: 8px; font-size: 13px; }
-        .calc-item input { width: auto !important; cursor: pointer; }
-        .total-price-box { background: #a855f7; color: #fff; padding: 12px; border-radius: 12px; text-align: center; font-weight: bold; margin-top: 15px; font-size: 15px; }
-
-        .checkbox-label { display: flex !important; align-items: flex-start; gap: 8px; color: #ffbcbc !important; font-size: 11px !important; cursor: pointer; margin: 15px 0 5px 0 !important; line-height: 1.4; background: rgba(255, 0, 0, 0.05); padding: 10px; border-radius: 10px; border: 1px dashed rgba(255, 0, 0, 0.2); }
-        .checkbox-label input { width: auto !important; margin-top: 3px; cursor: pointer; }
-
-        .popup-btns { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-confirm { background: #a855f7; color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: bold; flex: 2; cursor: pointer; font-family: 'Cairo'; font-size: 14px; }
-        .btn-cancel { background: #222; color: #fff; border: none; padding: 12px; border-radius: 12px; flex: 1; cursor: pointer; font-family: 'Cairo'; font-size: 14px; }
+        .credits { font-size: 10px; color: #3f3f46; text-align: center; margin-top: 25px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="profile-area">
-        <img src="popo_profile.jpg" alt="POPO Editor" class="profile-pic">
+        <img src="popo_profile.jpg" alt="POPO" class="profile-pic">
+        <h1>POPO Studio</h1>
+        <div class="subtitle">Premium Photo Editing & Retouching</div>
     </div>
 
-    <h1>POPO Studio</h1>
-    <div class="subtitle">Professional Photo Editor & Retoucher</div>
-
-    <div class="welcome-message">
-        ✨ "نعيد صياغة تفاصيل لقطاتكم لتصبح لوحة فنية ساحرة.. ألوان سينمائية وتعديل احترافي مخصص" 💻🎨
-    </div>
-
-    <div class="section-title">حساب تعديل مخصص الذكي</div>
-    <div class="package" style="border: 1px solid #a855f7; background: rgba(168, 85, 247, 0.08);">
-        <div class="package-details">
-            <strong style="color: #a855f7;">🎨 صمم باكدج الأيديت على ذوقك</strong>
-            <p>حدد نوع التعديل وعدد الصور واحسب السعر تلقائياً</p>
-        </div>
-        <div class="price-box">
-            <span class="price" style="background:#fff; color:#000;">📊 مرن</span>
-            <button class="btn-select" onclick="openCustomCalc()">احسب واحجز</button>
-        </div>
-    </div>
-
-    <div class="section-title">باكدجات التعديل الجاهزة</div>
+    <div class="section-title">Wedding Packages (باكدجات الأفراح للعدد)</div>
+    <div class="info-note">💡 باكدجات ثابتة مخصصة للمصورين لتعديل السيشنات والأفراح بالكامل بألوان متناسقة وجودة عالية.</div>
     
-    <div class="package" style="animation-delay: 0.1s;">
-        <div class="package-details">
-            <strong>تعديل صورة فردية (Single Photo)</strong>
-            <p>ريتش كامل للبشرة (High-End Retouch) + ضبط ألوان سينمائي</p>
+    <div class="package-card">
+        <div class="details-side">
+            <strong>Wedding Package - 100 Photos</strong>
+            <p>تعديل وتصحيح ألوان كامل + كلو جردينج لـ 100 صورة سيشن وفرح.</p>
         </div>
-        <div class="price-box">
-            <span class="price">100 EGP</span>
-            <button class="btn-select" onclick="openBooking('أيديت صورة فردية Single Photo')">احجز الآن</button>
-        </div>
-    </div>
-
-    <div class="package" style="animation-delay: 0.2s;">
-        <div class="package-details">
-            <strong>باكدج السيشن الكامل (Session Package)</strong>
-            <p>تعديل وتصحيح ألوان لـ 30 صورة + ريتش لـ 10 صور مميزة</p>
-        </div>
-        <div class="price-box">
-            <span class="price">1500 EGP</span>
-            <button class="btn-select" onclick="openBooking('باكدج السيشن الكامل')">احجز الآن</button>
+        <div class="action-side">
+            <span class="price-tag">450 EGP</span>
+            <button class="btn-order" onclick="openOrderModal('Wedding Package (100 Photos)', 450, 'fixed')">حجز الطلب</button>
         </div>
     </div>
 
-    <div class="package" style="animation-delay: 0.3s;">
-        <div class="package-details">
-            <strong>باكدج الأفراح الكبرى (Wedding Batch)</strong>
-            <p>ضبط وتوحيد ألوان القاعة والسيشن بالكامل (حتى 150 صورة)</p>
+    <div class="package-card">
+        <div class="details-side">
+            <strong>Wedding Package - 70 Photos</strong>
+            <p>تعديل وتصحيح ألوان كامل لـ 70 صورة من اختيارك.</p>
         </div>
-        <div class="price-box">
-            <span class="price">3000 EGP</span>
-            <button class="btn-select" onclick="openBooking('باكدج الأفراح الكبرى')">احجز الآن</button>
+        <div class="action-side">
+            <span class="price-tag">300 EGP</span>
+            <button class="btn-order" onclick="openOrderModal('Wedding Package (70 Photos)', 300, 'fixed')">حجز الطلب</button>
         </div>
     </div>
 
-    <div class="section-title">تواصل معي مباشرة</div>
-    <div class="social-grid">
-        <a href="https://wa.me/201505827390" target="_blank" class="social-item whatsapp-link">🟢 واتساب محمود بوبو</a>
+    <div class="package-card">
+        <div class="details-side">
+            <strong>Wedding Package - 50 Photos</strong>
+            <p>تعديل وتصحيح ألوان كامل لـ 50 صورة.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">250 EGP</span>
+            <button class="btn-order" onclick="openOrderModal('Wedding Package (50 Photos)', 250, 'fixed')">حجز الطلب</button>
+        </div>
     </div>
 
-    <div class="footer">
-        © 2026 POPO Studio. All Rights Reserved.
-        <span class="designer-signature">POPO THE MASTER</span>
+    <div class="section-title">High-End Wedding (تعديل بالصورة احترافي)</div>
+    <div class="info-note">
+        <strong>🔥 تفاصيل الـ High-End Processing:</strong><br>
+        نعمل على معالجة وتصحيح الصورة كاملة وبأعلى دقة تشمل: تنظيف البشرة (Skin Retouching)، معالجة عيوب فستان الزفاف وتفاصيل البدلة، ضبط وتغيير الخلفيات، إزالة الضوضاء (Noise Reduction)، زيادة حدة وتفاصيل الصورة (Image Sharpness)، تناسق تون البشرة (Skin Tone)، تعديل الإضاءة والظلال، تلوين سينمائي (Color Grading)، تصحيح الكوب والزوايا (Crop Correction)، واستخدام تقنيات الذكاء الاصطناعي (AI Enhancement).
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>High-End Retouching</strong>
+            <p>المحاسبة بالصورة الواحدة. السعر يتحدد حسب تفاصيل وحالة الصورة (يبدأ من 25 ج إلى 80 ج).</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">تحديد بالصورة</span>
+            <button class="btn-order" onclick="openOrderModal('High-End Wedding Retouching', 0, 'variable_wedding')">احسب واحجز</button>
+        </div>
+    </div>
+
+    <div class="section-title">Makeup & Fashion (الميكب والفاشون)</div>
+    <div class="info-note">💡 تعديل مخصص لخبراء التجميل ومصممي الأزياء، يركز على إبراز تفاصيل الميكب، تنظيف وتنعيم البشرة بدقة ميكروسكوبية، والمحافظة على تفاصيل الأقمشة والألوان الحقيقية.</div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>Makeup & Fashion - Basic Level</strong>
+            <p>تعديل احترافي للبشرة والألوان وإبراز الميكب.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">30 EGP / صورة</span>
+            <button class="btn-order" onclick="openOrderModal('Makeup & Fashion (Basic)', 30, 'per_photo')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>Makeup & Fashion - Medium Level</strong>
+            <p>تنظيف بشرة متقدم (Retouch) + تفاصيل الإضاءة والـ Skin Tone.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">60 EGP / صورة</span>
+            <button class="btn-order" onclick="openOrderModal('Makeup & Fashion (Medium)', 60, 'per_photo')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>Makeup & Fashion - Premium High-End</strong>
+            <p>تعديل مجلات عالمية وفوتومونتاج كامل وتغيير تفاصيل الخلفية.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">80 EGP / صورة</span>
+            <button class="btn-order" onclick="openOrderModal('Makeup & Fashion (Premium)', 80, 'per_photo')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="section-title">Indoor & Studio (شغل الاستوديو والأين دور)</div>
+    
+    <div class="package-card">
+        <div class="details-side">
+            <strong>Indoor Sessions (جلسات الأين دور)</strong>
+            <p>تعديل صور السيشنات الداخلية والاستوديو. السعر مرن ويحدد حسب الاتفاق وعدد الصور الكلي.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">حسب العدد</span>
+            <button class="btn-order" onclick="openOrderModal('Indoor Sessions', 0, 'flexible')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>صور رسمية 4*6</strong>
+            <p>تجهيز وتعديل الصور الشخصية للشهادات والمستندات الرسمية.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">10 EGP / صورة</span>
+            <button class="btn-order" onclick="openOrderModal('صور رسمية 4*6', 10, 'per_photo')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>تركيب خلفيات وتعديل</strong>
+            <p>تغيير كامل لخلفية الصورة ودمج الإضاءة لتبدو طبيعية تماماً.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">15 EGP / صورة</span>
+            <button class="btn-order" onclick="openOrderModal('تركيب خلفيات وتعديل', 15, 'per_photo')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>إزالة خلفيات فقط (Background Removal)</strong>
+            <p>تفريغ الصورة وقص العناصر بدقة عالية PNG.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">7 EGP / صورة</span>
+            <button class="btn-order" onclick="openOrderModal('إزالة خلفيات فقط', 7, 'per_photo')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>ترميم صور قديمة (Photo Restoration)</strong>
+            <p>إصلاح الصور التالفة، إزالة الخدوش، توضيح الملامح، وإعادتها للحياة.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">100 EGP / صورة</span>
+            <button class="btn-order" onclick="openOrderModal('ترميم صور قديمة', 100, 'per_photo')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>رسم ديجيتال وتركيب جماعي</strong>
+            <p>تحويل الصور لرسم ديجيتال (أبيض وأسود) أو تركيب صور أشخاص معاً في صورة جماعية واحدة.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">80 EGP</span>
+            <button class="btn-order" onclick="openOrderModal('رسم ديجيتال وتركيب جماعي', 80, 'per_photo')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="section-title">Design Services (خدمات التصميم الفني)</div>
+    
+    <div class="package-card">
+        <div class="details-side">
+            <strong>تصميم لوجو (Logo Design)</strong>
+            <p>تصميم شعار احترافي خاص بك كـ مصور أو لشركتك.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">300 EGP</span>
+            <button class="btn-order" onclick="openOrderModal('تصميم لوجو Logo', 300, 'fixed')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>تصميم باكدج أسعار</strong>
+            <p>تصميم منيو وقائمة أسعار لعرض خدماتك بشكل جذاب للعملاء.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">700 EGP</span>
+            <button class="btn-order" onclick="openOrderModal('تصميم باكدج أسعار', 700, 'fixed')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>باكدج أسعار شامل لكل الميديا</strong>
+            <p>تصميم باكدج الأسعار بمقاسات مختلفة ومخصصة لجميع وسائل التواصل.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">1000 EGP</span>
+            <button class="btn-order" onclick="openOrderModal('باكدج أسعار شامل للميديا', 1000, 'fixed')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>تصميم كرت شخصي (Business Card)</strong>
+            <p>تصميم كرت وجهين احترافي جاهز للطباعة فوراً.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">50 EGP</span>
+            <button class="btn-order" onclick="openOrderModal('تصميم كرت شخصي', 50, 'fixed')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>باكدج ميديا (غلاف + بروفايل)</strong>
+            <p>تصميم متناسق لغلاف صفحتك الشخصية وصورة البروفايل لتوحيد الهوية.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">300 EGP</span>
+            <button class="btn-order" onclick="openOrderModal('باكدج ميديا غلاف وبروفايل', 300, 'fixed')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="section-title">Product Post-Processing (شغل المنتجات)</div>
+    <div class="info-note">💡 تعديل صور المنتجات التجارية، إظهار تفاصيل المنتج، ضبط الألوان الحقيقية، وإزالة الشوائب والانعكاسات المزعجة لزيادة المبيعات.</div>
+
+    <div class="package-card">
+        <div class="details-side">
+            <strong>Product Editing</strong>
+            <p>المحاسبة بالصورة الواحدة بناءً على عدد الصور الإجمالي وتفاصيل المنتج المطلوب.</p>
+        </div>
+        <div class="action-side">
+            <span class="price-tag">تبدأ من 25 ج</span>
+            <button class="btn-order" onclick="openOrderModal('تعديل صور منتجات Product', 25, 'per_photo')">حجز الطلب</button>
+        </div>
+    </div>
+
+    <div class="footer-contacts">
+        <h4>💰 طرق الدفع المعتمدة (فودافون كاش):</h4>
+        <div class="contact-row">💳 حساب كاش أساسي: <strong>01109176051</strong></div>
+        <div class="contact-row">💳 حساب كاش إضافي: <strong>01143506718</strong></div>
+        
+        <h4 style="margin-top:15px;">📞 للتواصل والاستفسار الفوني:</h4>
+        <div class="contact-row">📱 خط الاتصال المباشر: <strong>01143506718</strong></div>
+        
+        <a href="https://www.facebook.com/mahmoud.saaed17" target="_blank" class="social-btn">🌐 تواصل معي عبر فيسبوك</a>
+    </div>
+
+    <div class="credits">
+        © 2026 POPO STUDIO | DISIGNED FOR PROFESSIONALS
     </div>
 </div>
 
-<div id="bookingPopup" class="popup">
+<div id="orderModal" class="popup-overlay">
     <div class="popup-content">
-        <h3>تفاصيل طلب الأيديت 📝</h3>
-        <p id="selectedPackageText" style="color:#a855f7; font-size:12px; text-align:center; margin-bottom: 10px;"></p>
+        <h3 id="modalTitle">تفاصيل طلب الحجز</h3>
         
-        <label>الاسم بالكامل ( English ):</label>
-        <input type="text" id="clientName" placeholder="Your Full Name" style="direction: ltr; text-align: left;">
+        <label>الاسم بالكامل / مصور الشغل:</label>
+        <input type="text" id="clientName" placeholder="اكتب اسمك هنا">
 
-        <label>رقم الواتساب للتواصل وإرسال الصور:</label>
-        <input type="tel" id="clientWhatsapp" placeholder="اكتب رقمك هنا">
-
-        <label>عدد الصور المطلوب تعديلها تقريباً:</label>
-        <input type="number" id="photoCount" placeholder="مثال: 20">
-
-        <label>هل توافق على مشاركة الصور قبل وبعد الأيديت في معرض أعمالي؟</label>
-        <div class="radio-group">
-            <label class="radio-label"><input type="radio" name="mediaShare" value="موافق على نشر الصور قبل وبعد" checked> موافق على عرضها كـ (Before/After)</label>
-            <label class="radio-label"><input type="radio" name="mediaShare" value="لا، الخصوصية تامة"> لا، يرجى الحفاظ على الخصوصية التامة</label>
-        </div>
-
-        <label class="checkbox-label">
-            <input type="checkbox" id="termsAgree">
-            أوافق على أن جودة الأيديت تعتمد بشكل كبير على جودة التقاط الصورة الأصلية المرسلة (يفضل صيغة RAW).
-        </label>
-
-        <label>ملاحظات خاصة بالتعديل (تعديل ألوان معين أو عيوب حابب تشيلها):</label>
-        <textarea id="notes" rows="2" placeholder="اكتب ملاحظاتك للأيديتور هنا..."></textarea>
-        
-        <div class="popup-btns">
-            <button class="btn-confirm" onclick="sendToWhatsapp(false)">إرسال الطلب لبوبو 🚀</button>
-            <button class="btn-cancel" onclick="closePopup()">إلغاء</button>
-        </div>
-    </div>
-</div>
-
-<div id="customCalcPopup" class="popup">
-    <div class="popup-content">
-        <h3>🎨 صمم باكدج تعديل مخصصة</h3>
-        <p style="text-align: center; color: #aaa; font-size: 11px; margin-bottom: 15px;">اختار أنواع التعديل اللي محتاجها لصورك</p>
-        
-        <div class="calc-item"><label><input type="checkbox" class="calc-check" data-price="30" data-name="تعديل وتصحيح ألوان (Color Grading)"> 🎨 تصحيح وتناسق ألوان سينمائي</label> <span>30 ج</span></div>
-        <div class="calc-item"><label><input type="checkbox" class="calc-check" data-price="50" data-name="تنظيف بشرة وريتش احترافي (Skin Retouch)"> 💆 تنظيف بشرة احترافي High-End</label> <span>50 ج</span></div>
-        <div class="calc-item"><label><input type="checkbox" class="calc-check" data-price="70" data-name="دمج وتغيير خلفية وفوتومونتاج"> 🌌 دمج فوتوشوب وتغيير خلفيات</label> <span>70 ج</span></div>
-        <div class="calc-item"><label><input type="checkbox" class="calc-check" data-price="20" data-name="تعديل إضاءة وظلال"> ☀️ ضبط إضاءة وظلال</label> <span>20 ج</span></div>
-
-        <label style="margin-top: 15px;">اكتب عدد الصور اللي عايز تطبق عليها الاختيارات دي:</label>
-        <input type="number" id="customCountMultiplier" value="1" min="1" style="text-align: center; font-weight: bold; color: #a855f7;">
-
-        <div class="total-price-box">💰 إجمالي سعر الصورة: <span id="singlePriceDisplay">0</span> ج<br>🧮 الإجمالي للعدد: <span id="totalPriceDisplay">0</span> EGP</div>
-
-        <div style="border-top: 1px dashed #333; margin-top: 15px; padding-top: 10px;">
-            <label>الاسم بالكامل ( English ):</label>
-            <input type="text" id="custName" placeholder="Your Name" style="direction: ltr; text-align: left;">
-            <label>رقم واتساب للتواصل:</label>
-            <input type="tel" id="custWhatsapp" placeholder="رقمك">
-            
-            <label>مشاركة الصور كـ (Before/After)؟</label>
-            <div class="radio-group">
-                <label class="radio-label"><input type="radio" name="custMedia" value="موافق على نشر صور قبل وبعد" checked> موافق على النشر</label>
-                <label class="radio-label"><input type="radio" name="custMedia" value="لا، خصوصية تامة"> لا، خصوصية تامة</label>
+        <div id="dynamicFields">
+            <div id="countInputArea">
+                <label>عدد الصور المطلوب عملها:</label>
+                <input type="number" id="photoCount" value="1" min="1" oninput="updateLivePrice()">
             </div>
             
-            <label class="checkbox-label">
-                <input type="checkbox" id="custTerms">
-                أوافق على أن جودة الأيديت تعتمد بشكل كبير على جودة التقاط الصورة الأصلية المرسلة.
-            </label>
-            
-            <label>أي ملاحظات إضافية:</label>
-            <textarea id="custNotes" rows="2" placeholder="اكتب تفاصيل تانية هنا..."></textarea>
+            <div id="weddingPriceSelector" style="display:none;">
+                <label>اختار فئة السعر المناسبة لتفاصيل صورتك:</label>
+                <select id="weddingPriceTier" onchange="updateLivePrice()" style="width:100%; padding:10px; background:#1c1c1e; color:#fff; border:1px solid #2c2c2e; border-radius:10px; font-family:'Cairo';">
+                    <option value="25">25 ج (تعديل خفيف/ألوان)</option>
+                    <option value="40">40 ج (ريتش وتعديل متوسط)</option>
+                    <option value="60">60 ج (هاي إند كامل ومعالجة بشرة تفصيلية)</option>
+                    <option value="80">80 ج (فوتومونتاج، دمج وتغيير خلفيات كامل بالـ AI)</option>
+                </select>
+            </div>
         </div>
 
-        <div class="popup-btns">
-            <button class="btn-confirm" onclick="sendToWhatsapp(true)">تأكيد وإرسال لـ POPO 🚀</button>
-            <button class="btn-cancel" onclick="closeCustomCalc()">إلغاء</button>
+        <label>لينك فولدر جوجل درايف (Google Drive Link) المرفوع عليه الصور لشغلك:</label>
+        <input type="url" id="driveLink" placeholder="https://drive.google.com/drive/..." style="direction: ltr; text-align: left;">
+
+        <label>ملاحظات إضافية حابب تبلغها للأيديتور:</label>
+        <textarea id="orderNotes" rows="2" placeholder="ألوان دافية، عيوب معينة في الفستان، إلخ..."></textarea>
+
+        <div class="calc-box">
+            💰 الإجمالي المحسوب: <span id="livePriceDisplay">0</span> EGP
+        </div>
+
+        <div class="delivery-alert">
+            ⚡ تسليم هذا العمل يتم خلال 3 أيام كحد أقصى من بداية إرسال وتأكيد الشغل.
+        </div>
+
+        <div class="popup-actions">
+            <button class="btn-submit" onclick="submitToWhatsapp()">إرسال التفاصيل و حجز الطلب 🚀</button>
+            <button class="btn-close" onclick="closeOrderModal()">إلغاء</button>
         </div>
     </div>
 </div>
 
 <script>
-    let currentPkg = "";
-    
-    function openBooking(pkg) {
-        currentPkg = pkg;
-        document.getElementById('selectedPackageText').innerText = "طلب باكدج: " + pkg;
-        document.getElementById('bookingPopup').style.display = 'flex';
-    }
-    function closePopup() { document.getElementById('bookingPopup').style.display = 'none'; }
-    function openCustomCalc() { document.getElementById('customCalcPopup').style.display = 'flex'; }
-    function closeCustomCalc() { document.getElementById('customCalcPopup').style.display = 'none'; }
+    let activeService = "";
+    let activePrice = 0;
+    let activeType = ""; // fixed, per_photo, variable_wedding, flexible
 
-    const checkboxes = document.querySelectorAll('.calc-check');
-    const multiplierInput = document.getElementById('customCountMultiplier');
-
-    function calculateTotal() {
-        let singlePhotoTotal = 0;
-        checkboxes.forEach(item => {
-            if(item.checked) { singlePhotoTotal += parseInt(item.getAttribute('data-price')); }
-        });
+    function openOrderModal(serviceName, price, type) {
+        activeService = serviceName;
+        activePrice = price;
+        activeType = type;
         
-        let multiplier = parseInt(multiplierInput.value) || 1;
-        if(multiplier < 1) multiplier = 1;
+        document.getElementById('modalTitle').innerText = serviceName;
+        document.getElementById('clientName').value = "";
+        document.getElementById('driveLink').value = "";
+        document.getElementById('orderNotes').value = "";
+        document.getElementById('photoCount').value = "1";
         
-        document.getElementById('singlePriceDisplay').innerText = singlePhotoTotal;
-        document.getElementById('totalPriceDisplay').innerText = singlePhotoTotal * multiplier;
-    }
-
-    checkboxes.forEach(box => box.addEventListener('change', calculateTotal));
-    multiplierInput.addEventListener('input', calculateTotal);
-
-    function sendToWhatsapp(isCustom) {
-        let name, clientPhone, notes, mediaOption, termsAgree, text;
-        const myWhatsappNumber = "201505827390"; 
-        
-        if (!isCustom) {
-            name = document.getElementById('clientName').value;
-            clientPhone = document.getElementById('clientWhatsapp').value;
-            const count = document.getElementById('photoCount').value;
-            notes = document.getElementById('notes').value;
-            mediaOption = document.querySelector('input[name="mediaShare"]:checked').value;
-            termsAgree = document.getElementById('termsAgree').checked;
-            
-            if(!name || !clientPhone || !count) { alert('من فضلك املأ الاسم، رقم الواتساب، وعدد الصور!'); return; }
-            if(!termsAgree) { alert('يجب الحجز بالموافقة على بند جودة الصور الأصلية!'); return; }
-            
-            text = `أهلاً بوبو، حابب أطلب باكدج أيديت لشغلي:\n` +
-                   `📌 الباكدج: ${currentPkg}\n` +
-                   `👤 الاسم (EN): ${name}\n` +
-                   `📱 رقم التواصل: ${clientPhone}\n` +
-                   `🖼️ عدد الصور المطلوبة: ${count} صورة\n` +
-                   `🌐 عرض قبل وبعد (Before/After): ${mediaOption}\n` +
-                   `📝 ملاحظات التعديل: ${notes || 'لا يوجد ملاحظات خاصة'}`;
+        // التحكم في ظهور خانات الأعداد والأسعار
+        if(type === 'fixed') {
+            document.getElementById('countInputArea').style.display = 'none';
+            document.getElementById('weddingPriceSelector').style.display = 'none';
+        } else if(type === 'variable_wedding') {
+            document.getElementById('countInputArea').style.display = 'block';
+            document.getElementById('weddingPriceSelector').style.display = 'block';
+        } else if(type === 'flexible') {
+            document.getElementById('countInputArea').style.display = 'block';
+            document.getElementById('weddingPriceSelector').style.display = 'none';
         } else {
-            name = document.getElementById('custName').value;
-            clientPhone = document.getElementById('custWhatsapp').value;
-            const count = multiplierInput.value;
-            notes = document.getElementById('custNotes').value;
-            mediaOption = document.querySelector('input[name="custMedia"]:checked').value;
-            termsAgree = document.getElementById('custTerms').checked;
-            
-            let selectedServices = [];
-            checkboxes.forEach(item => {
-                if(item.checked) { selectedServices.push(item.getAttribute('data-name')); }
-            });
-            
-            if(selectedServices.length === 0) { alert('من فضلك اختار نوع تعديل واحد على الأقل!'); return; }
-            if(!name || !clientPhone) { alert('من فضلك املأ الاسم ورقم الواتساب الخاص بك!'); return; }
-            if(!termsAgree) { alert('من فضلك وافق على بند جودة الصور الأصلية!'); return; }
-            
-            const totalCost = document.getElementById('totalPriceDisplay').innerText;
-            
-            text = `أهلاً بوبو، قمت بتصميم باكدج أيديت مخصصة لصورى:\n` +
-                   `🛠️ أنواع التعديل المطلوبة:\n - ${selectedServices.join('\n - ')}\n` +
-                   `🖼️ عدد الصور الكلي: ${count} صورة\n` +
-                   `💰 الإجمالي المحسوب تلقائياً: ${totalCost} EGP\n` +
-                   `👤 الاسم (EN): ${name}\n` +
-                   `📱 رقم الواتساب: ${clientPhone}\n` +
-                   `🌐 عرض قبل وبعد (Before/After): ${mediaOption}\n` +
-                   `📝 ملاحظات إضافية: ${notes || 'لا يوجد'}`;
+            document.getElementById('countInputArea').style.display = 'block';
+            document.getElementById('weddingPriceSelector').style.display = 'none';
         }
         
-        window.open(`https://wa.me/${myWhatsappNumber}?text=${encodeURIComponent(text)}`, '_blank');
+        updateLivePrice();
+        document.getElementById('orderModal').style.display = 'flex';
+    }
+
+    function closeOrderModal() {
+        document.getElementById('orderModal').style.display = 'none';
+    }
+
+    function updateLivePrice() {
+        let count = parseInt(document.getElementById('photoCount').value) || 1;
+        if(count < 1) count = 1;
+        let finalPrice = 0;
+
+        if(activeType === 'fixed') {
+            finalPrice = activePrice;
+        } else if(activeType === 'per_photo') {
+            finalPrice = activePrice * count;
+        } else if(activeType === 'variable_wedding') {
+            let tierPrice = parseInt(document.getElementById('weddingPriceTier').value);
+            finalPrice = tierPrice * count;
+        } else if(activeType === 'flexible') {
+            document.getElementById('livePriceDisplay').innerText = "يتحدد لاحقاً حسب الاتفاق";
+            return;
+        }
+
+        document.getElementById('livePriceDisplay').innerText = finalPrice;
+    }
+
+    function submitToWhatsapp() {
+        const name = document.getElementById('clientName').value;
+        const drive = document.getElementById('driveLink').value;
+        const notes = document.getElementById('orderNotes').value;
+        const count = document.getElementById('photoCount').value;
+        const total = document.getElementById('livePriceDisplay').innerText;
+        
+        if(!name) { alert('من فضلك اكتب اسمك أو اسم الاستوديو أولاً!'); return; }
+        if(!drive) { alert('من فضلك حط لينك جوجل درايف اللي عليه الصور عشان نشتغل!'); return; }
+        
+        let message = `🔥 طلب حجز تعديل جديد - POPO Studio\n\n` +
+                      `📌 الخدمة: ${activeService}\n` +
+                      `👤 العميل/المصور: ${name}\n`;
+                      
+        if(activeType !== 'fixed') {
+            message += `🖼️ عدد الصور المطلوبة: ${count} صورة\n`;
+        }
+        
+        if(activeType === 'variable_wedding') {
+            const selectedTier = document.getElementById('weddingPriceTier').value;
+            message += `🎨 فئة الحساب المحددة للصورة: ${selectedTier} ج\n`;
+        }
+        
+        message += `💰 إجمالي التكلفة: ${total} EGP\n` +
+                   `📂 رابط جوجل درايف للشغل:\n${drive}\n\n` +
+                   `📝 ملاحظات العميل: ${notes || 'لا يوجد ملاحظات إضافية'}\n\n` +
+                   `⚡ بند التسليم: العميل على علم بأن التسليم خلال 3 أيام من إرسال وتأكيد الشغل.`;
+
+        const myPhone = "201109176051";
+        window.open(`https://wa.me/${myPhone}?text=${encodeURIComponent(message)}`, '_blank');
     }
 </script>
 
